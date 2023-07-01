@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Articles</title>
+    <style>
+        body {
+            /* Light mode styles */
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        body.dark-mode {
+            /* Dark mode styles */
+            background-color: #333;
+            color: #f1f1f1;
+        }
+
+        .toggle-mode {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-mode button {
+            padding: 10px 20px;
+            background-color: #ccc;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>News Articles</h1>
+
+    <div class="toggle-mode">
+        <button id="toggle-btn" onclick="toggleMode()">Toggle Mode</button>
+    </div>
+
+    {% for article in articles %}
+    <div class="article">
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.summary }}</p>
+        <a href="{{ article.link }}">Read more</a>
+        <h5>Key Points:</h5>
+        {% if article.key_points %}
+        <ul>
+            {% for point in article.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No key points available.</p>
+        {% endif %}
+        <h5>Keywords:</h5>
+        <ul>
+            {% for keyword in article.keywords %}
+            <li><a href="{{ keyword }}">{{ keyword }}</a></li>
+            {% endfor %}
+        </ul>
+        <h5>Summarized Text:</h5>
+        <p>{{ article.summarized_text }}</p>
+    </div>
+    {% endfor %}
+
+    <script>
+        function toggleMode() {
+            var body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
